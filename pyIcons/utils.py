@@ -18,6 +18,6 @@ def create_svg_element(data,width:str="1em",height:str="1em",stroke:str="none",f
     data["attr"]["stroke"] = stroke
     data["attr"]["fill"] = fill if fill else "none"
     data["attr"]["stroke-width"] = stroke_width
-    data["attr"]["class"] = class_names
+    data["attr"]["class"] = " ".join(class_names)
     data["attr"]["id"]  = id
     return stringify_element(data)

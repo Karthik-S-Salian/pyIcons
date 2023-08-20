@@ -40,12 +40,31 @@ for path in REACT_ICONS_BASE_DIR.iterdir():
 # with open(Path(__file__).parent/"svgIcons.json","w") as fh:
 #     json.dump(icons,fh,indent=4)
 
+# print("start writing python file")
+# ICONS_PYTHON_FOLDER = Path(__file__).parent.parent/"pyIcons/icons"
+# for key,values in icons.items():
+#     with open(ICONS_PYTHON_FOLDER/f"{key}.py","w") as fh:
+#         print(f"writing {key}.py ....")
+#         content = ""
+#         for iconName,icon in values.items():
+#             content +=f"\n{iconName} = {icon}"
+#         fh.write(content)
+
+
+imports = """
+from typing import List,Union
+from ..utils import create_svg_element
+"""
+fun = """
+def {}(width:str="1em",height:str="1em",stroke:str="none",fill:Union[str,None]="black",stroke_width:str="0",class_names:List[str]=[],id:str=""):
+    return create_svg_element({},width,height,stroke,fill,stroke_width,class_names,id)
+"""
 print("start writing python file")
 ICONS_PYTHON_FOLDER = Path(__file__).parent.parent/"pyIcons/icons"
 for key,values in icons.items():
     with open(ICONS_PYTHON_FOLDER/f"{key}.py","w") as fh:
         print(f"writing {key}.py ....")
-        content = ""
+        content = imports
         for iconName,icon in values.items():
-            content +=f"\n{iconName} = {icon}"
-        fh.write(content)
+            content +=fun.format(iconName,icon)
+        fh.write(content.strip())
